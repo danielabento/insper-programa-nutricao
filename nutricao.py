@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Apr 16 17:16:50 2015
+Created on Wed Apr 22 16:28:29 2015
 
-@author: Dani Bento
+@author: david
 """
 
 arquivoa = open("alimentos.csv", encoding="latin1")
@@ -10,7 +10,6 @@ alimentos = arquivoa.readlines()
 
 arquivou = open("usuario.csv", encoding = "utf-8")
 usuario = arquivou.readlines()
-# print(usuario)
 
 print("Ola, voce esta no nosso programa de dietas!")
 print("")
@@ -23,6 +22,7 @@ print("")
 peso = int(dados1[2])
 altura = float(dados1[4])*100
 idade = int(dados1[1])
+alturaimc = float(dados1[4])
 
 if dados1[3]=="M":
     formulah = 88.36 + (13.4 * peso) + (4.8 * altura) - (5.7 * idade)
@@ -52,15 +52,16 @@ for i in usuario[3::]:
 for i in usuario[3::]:
     if i[0] not in listadatas:
         x = i.split(",")
-#        print(x)
         listadatas.append(x[0])
         dic_datas[x[0]]= {}
     caloriasingeridas = int((int(dic_cal[x[1]])/100)*float(x[2]))
-#    print(caloriasingeridas)
     caldia[x[0]] += caloriasingeridas
     
 print("A quantidade diaria de calorias ingeridas no dia 1 foi de:", caldia["6/4/15"])
-print("A quantidade diaria de calorias ingeridas no dia 2 foi de:", caldia["7/4/15"])            
+print(formulah - caldia["6/4/15"], "calorias para atingir a quantidade diaria ideal")
+dia2 = print("A quantidade diaria de calorias ingeridas no dia 2 foi de:", caldia["7/4/15"])
+print(formulah - caldia["7/4/15"], "calorias para atingir a quantidade diaria ideal")
+print("")
 
 dic_pro = {}
 for linha in alimentos:
@@ -82,3 +83,17 @@ for linha in alimentos:
     chave = comidas[0]
     gorduras = comidas[5]
     dic_gord[chave] = gorduras
+
+IMC = float((1.3*peso)/(alturaimc**2.5))
+print("Seu indice de massa corporal eh de:", IMC)
+print("")
+
+if IMC < 18.5:
+    print("Se alimente melhor, pois voce esta abaixo do peso!")
+if IMC >= 18.5 and IMC <= 24.9:
+    print("Continue assim, voce esta no peso ideal!")
+if IMC > 24.9:
+    print("Cuidado, voce esta acima do peso!")
+    
+import matplotlib.pyplot as plt
+from pylab import *
