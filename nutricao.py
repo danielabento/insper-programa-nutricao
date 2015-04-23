@@ -63,12 +63,29 @@ dia2 = print("A quantidade diaria de calorias ingeridas no dia 2 foi de:", caldi
 print(formulah - caldia["7/4/15"], "calorias para atingir a quantidade diaria ideal")
 print("")
 
+protdia = {}
 dic_pro = {}
+
 for linha in alimentos:
     comidas = linha.split(",")
     chave = comidas[0]
     proteinas = comidas[3]
     dic_pro[chave] = proteinas
+print(dic_pro)
+ 
+for chave in dic_pro:
+    if comidas[0] not in usuario:
+        y = chave.split(",")
+        protdia[y[0]]= 0
+        
+for chave in usuario[3::]:
+    if comidas[0] not in usuario:
+        y = chave.split(",")
+        usuario.append(y[0])
+        dic_pro[y[0]]= {}
+    proteinasingeridas = int((float(dic_pro[y[1]])/100)*float(y[2]))
+#print(proteinasingeridas)
+    protdia[y[0]] += proteinasingeridas
 
 dic_carb = {}
 for linha in alimentos:
@@ -96,4 +113,21 @@ if IMC > 24.9:
     print("Cuidado, voce esta acima do peso!")
     
 import matplotlib.pyplot as plt
-from pylab import *
+#from pylab import *
+
+dias = range (0, 1, 2)
+caloriass = range (0, 461, 1090)
+plt.plot(dias, caloriass, label='Calorias consumidas')
+plt.plot(dias, formulah, label='Calorias ideais')
+plt.axis([0, 2, 0, 1100])
+plt.xlabel('dias analisados')
+plt.ylabel('calorias consumidas [kcal]')
+plt.title('Calorias consumidas') 
+plt.show()
+
+proteinass = range (0, p)
+plt.plot(dias, proteinass)
+plt.xlabel('dias analisados')
+plt.ylabel('proteinas consumidas [g]')
+plt.title('Proteinas consimidas')  
+plt.show()
